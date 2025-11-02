@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidade de Processamento - CPU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 90%;
+            max-width: 1200px;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            padding: 60px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.3rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        li {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1rem;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            font-size: 1rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .cpu-diagram {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .component-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .component-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        .intro-slide {
+            text-align: center;
+            align-items: center;
+        }
+
+        .cpu-icon {
+            font-size: 8rem;
+            margin-bottom: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .performance-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .performance-box h3 {
+            color: #d63031;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #764ba2;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Introdução -->
+        <div class="slide active intro-slide">
+            <div class="cpu-icon">🖥️</div>
+            <h1>Unidade de Processamento</h1>
+            <p class="subtitle">CPU - Central Processing Unit</p>
+            <p>O cérebro do computador</p>
+        </div>
+
+        <!-- Slide 2: O que é CPU -->
+        <div class="slide">
+            <h2>O que é a CPU?</h2>
+            <p>A <strong>Unidade Central de Processamento</strong> (CPU) é o componente principal de um computador responsável por executar instruções e processar dados.</p>
+            <ul>
+                <li>Executa operações aritméticas e lógicas</li>
+                <li>Controla o fluxo de dados entre componentes</li>
+                <li>Interpreta e executa instruções de programas</li>
+                <li>Coordena todas as atividades do sistema</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Componentes Principais -->
+        <div class="slide">
+            <h2>Componentes Principais</h2>
+            <div class="cpu-diagram">
+                <div class="component-box">
+                    <h3>🧮 ULA</h3>
+                    <p><strong>Unidade Lógica e Aritmética</strong></p>
+                    <p>Realiza operações matemáticas e lógicas</p>
+                </div>
+                <div class="component-box">
+                    <h3>🎛️ UC</h3>
+                    <p><strong>Unidade de Controle</strong></p>
+                    <p>Coordena e controla as operações da CPU</p>
+                </div>
+                <div class="component-box">
+                    <h3>💾 Registradores</h3>
+                    <p><strong>Memória Interna</strong></p>
+                    <p>Armazena dados temporários de alta velocidade</p>
+                </div>
+                <div class="component-box">
+                    <h3>⚡ Cache</h3>
+                    <p><strong>Memória Cache</strong></p>
+                    <p>Memória rápida para dados frequentes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Como Funciona -->
+        <div class="slide">
+            <h2>Ciclo de Instrução</h2>
+            <p>A CPU executa instruções em um ciclo contínuo:</p>
+            <ul>
+                <li><span class="highlight">1. FETCH</span> - Busca a instrução na memória</li>
+                <li><span class="highlight">2. DECODE</span> - Decodifica a instrução</li>
+                <li><span class="highlight">3. EXECUTE</span> - Executa a operação</li>
+                <li><span class="highlight">4. STORE</span> - Armazena o resultado</li>
+            </ul>
+            <p style="margin-top: 30px;">Este ciclo se repete <strong>bilhões de vezes por segundo</strong>!</p>
+        </div>
+
+        <!-- Slide 5: Características de Performance -->
+        <div class="slide">
+            <h2>Características de Performance</h2>
+            <div class="grid-2">
+                <div class="performance-box">
+                    <h3>Clock Speed</h3>
+                    <p>Medido em GHz (Gigahertz)</p>
+                    <p><strong>Exemplo:</strong> 3.5 GHz = 3,5 bilhões de ciclos/segundo</p>
+                </div>
+                <div class="performance-box">
+                    <h3>Núcleos</h3>
+                    <p>Múltiplos processadores em um chip</p>
+                    <p><strong>Exemplo:</strong> Quad-core, Octa-core</p>
+                </div>
+                <div class="performance-box">
+                    <h3>Cache</h3>
+                    <p>L1, L2, L3</p>
+                    <p><strong>Quanto maior, melhor!</strong></p>
+                </div>
+                <div class="performance-box">
+                    <h3>Threads</h3>
+                    <p>Execução paralela de tarefas</p>
+                    <p><strong>Multithreading</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Fabricantes -->
+        <div class="slide">
+            <h2>Principais Fabricantes</h2>
+            <ul>
+                <li><strong>Intel</strong> - Core i3, i5, i7, i9 (Desktop e Laptop)</li>
+                <li><strong>AMD</strong> - Ryzen 3, 5, 7, 9 (Desktop e Laptop)</li>
+                <li><strong>Apple</strong> - M1, M2, M3 (Silicon)</li>
+                <li><strong>ARM</strong> - Processadores para dispositivos móveis</li>
+                <li><strong>Qualcomm</strong> - Snapdragon (Smartphones)</li>
+            </ul>
+        </div>
+
+        <!-- Slide 7: Conclusão -->
+        <div class="slide intro-slide">
+            <h2>Conclusão</h2>
+            <p>A CPU é o componente mais importante do computador, responsável por processar todas as informações e executar programas.</p>
+            <p style="margin-top: 30px;">Sua <strong>velocidade</strong>, <strong>número de núcleos</strong> e <strong>arquitetura</strong> determinam o desempenho geral do sistema.</p>
+            <div style="margin-top: 50px; font-size: 4rem;">✨</div>
+        </div>
+
+        <!-- Navegação -->
+        <div class="navigation">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+            <button id="nextBtn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+
+        <!-- Contador de slides -->
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">7</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Navegação por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
+                changeSlide(1);
+            }
+        });
+
+        // Inicializar
+        showSlide(0);
+    </script>
+</body>
+</html>
